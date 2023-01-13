@@ -1,0 +1,10 @@
+.container{
+    margin: 1vw;
+    margin-bottom: 5vw;
+}
+
+.messageBox{
+    border: 3px solid gray;
+    border-radius: 5px;
+    margin: 10px 0;
+}
