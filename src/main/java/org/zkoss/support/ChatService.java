@@ -1,6 +1,13 @@
 package org.zkoss.support;
 
 
+
+
+
+
+import com.google.gson.*;
+import org.zkoss.json.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.Properties;
@@ -13,9 +20,14 @@ public class ChatService {
 
     static final String API_KEY = loadApiKey();
     private HttpURLConnection con;
+    private URL url;
 
     public ChatService() {
-        initHttpURLConnection();
+        try {
+            url = new URL("https://api.openai.com/v1/engines/davinci-codex/completions");
+        }catch (MalformedURLException e){
+            throw new IllegalStateException(e);
+        }
     }
 
     public String prompt(String message) {
@@ -28,7 +40,7 @@ public class ChatService {
     }
 
 
-    private StringBuffer readResponse() throws IOException {
+    private String readResponse() throws IOException {
         int responseCode = this.con.getResponseCode();
         BufferedReader in = new BufferedReader(new InputStreamReader(this.con.getInputStream()));
         String inputLine;
@@ -36,15 +48,21 @@ public class ChatService {
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
+        JsonParser parser = new JsonParser();
+        JsonElement jsonElement = parser.parse(response.toString());
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray("choices");
+        JsonObject firstChoice = jsonArray.get(0).getAsJsonObject();
+
         in.close();
-        return response;
+        con.disconnect();
+        return firstChoice.get("text").getAsString();
     }
 
     private void sendRequest(String prompt) throws IOException {
+        initHttpURLConnection();
         String requestBody = "{\"prompt\": \"" + prompt + "\", \"temperature\": 0.5, \"max_tokens\": 2048}";
-        if (!con.getDoOutput()){
-            con.setDoOutput(true);
-        }
+        con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(this.con.getOutputStream());
         wr.writeBytes(requestBody);
         wr.flush();
@@ -52,10 +70,7 @@ public class ChatService {
     }
 
     private void initHttpURLConnection() {
-        URL url = null;
-        HttpURLConnection con = null;
         try {
-            url = new URL("https://api.openai.com/v1/engines/davinci-codex/completions");
             this.con = (HttpURLConnection) url.openConnection();
             this.con.setRequestMethod("POST");
             this.con.setRequestProperty("Content-Type", "application/json");
