@@ -5,14 +5,17 @@ import org.zkoss.zk.ui.select.annotation.*;
 import org.zkoss.zul.*;
 
 public class ChatRoomComposer extends SelectorComposer {
-    @Wire
-    private Label messages;
+    @Wire(".messageBox")
+    private Vlayout msgBox;
     @Wire
     private Textbox myMessage;
 
+    private ChatService chatService = new ChatService();
+
     @Listen("onOK = textbox")
     public void submit(){
-        myMessage.getValue();
+        msgBox.appendChild(new Label(chatService.prompt(myMessage.getValue())));
+        myMessage.setValue("");
     }
 
 
