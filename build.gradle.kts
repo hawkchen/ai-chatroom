@@ -18,6 +18,8 @@ repositories {
 dependencies {
     implementation("org.zkoss.zk:zkmax:9.6.3-Eval")
     implementation("com.google.code.gson:gson:2.7")
+
+    testImplementation("junit:junit:4.4")
 }
 
 

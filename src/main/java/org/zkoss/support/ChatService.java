@@ -24,7 +24,8 @@ public class ChatService {
 
     public ChatService() {
         try {
-            url = new URL("https://api.openai.com/v1/engines/davinci-codex/completions");
+            url = new URL("https://api.openai.com/v1/completions");
+//            url = new URL("https://api.openai.com/v1/engines/davinci/completions"); deprecated
         }catch (MalformedURLException e){
             throw new IllegalStateException(e);
         }
@@ -35,6 +36,7 @@ public class ChatService {
             sendRequest(message);
             return readResponse().toString();
         } catch (IOException e) {
+            e.printStackTrace();
             return e.toString();
         }
     }
@@ -61,7 +63,7 @@ public class ChatService {
 
     private void sendRequest(String prompt) throws IOException {
         initHttpURLConnection();
-        String requestBody = "{\"prompt\": \"" + prompt + "\", \"temperature\": 0.5, \"max_tokens\": 2048}";
+        String requestBody = "{\"model\": \"text-davinci-003\", \"prompt\": \"" + prompt + "\", \"temperature\": 0.5, \"max_tokens\": 2048}";
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(this.con.getOutputStream());
         wr.writeBytes(requestBody);
@@ -75,7 +77,6 @@ public class ChatService {
             this.con.setRequestMethod("POST");
             this.con.setRequestProperty("Content-Type", "application/json");
             this.con.setRequestProperty("Authorization", "Bearer " + API_KEY);
-            System.out.println("key: " + API_KEY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -92,45 +93,5 @@ public class ChatService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        System.out.println(new ChatService().prompt("hello"));
-//        test();
-    }
-
-    public static void test() throws IOException {
-        // Set up the request parameters
-        URL url = new URL("https://api.openai.com/v1/engines/davinci-codex/completions");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer " + API_KEY);
-
-        // Build the request body
-//            String prompt = "What is the weather like in San Francisco today?";
-        String prompt = "hello";
-//            String requestBody = "{\"model\": \"text-davinci-003\",\"prompt\": \"" + prompt + "\", \"temperature\": 0.5, \"max_tokens\": 2048}";
-        String requestBody = "{\"prompt\": \"" + prompt + "\", \"temperature\": 0.5, \"max_tokens\": 2048}";
-
-        // Send the request
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(requestBody);
-        wr.flush();
-        wr.close();
-
-        // Read the response
-        int responseCode = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        // Print the response
-        System.out.println(response.toString());
     }
 }
