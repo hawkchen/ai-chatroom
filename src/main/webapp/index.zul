@@ -1,9 +1,12 @@
 <zk xmlns:h="native">
 	<style src="style.css"/>
-	<h:h2>Chat with AI</h:h2>
+	<h:h1>Chat with AI</h:h1>
 	<div apply="org.zkoss.support.ChatRoomComposer" vflex="1" sclass="container">
-		<vlayout vflex="1" sclass="messageBox" >
-		</vlayout>
-		<textbox id="myMessage" width="100%" focus="true" placeholder="type your messages here"/>
+		<div vflex="1" sclass="messageBox" >
+		</div>
+		<hlayout>
+		<textbox id="myMessage"  focus="true" hflex="1" placeholder="type your messages here"/>
+		<button id="send" iconSclass="z-icon-send"/>
+		</hlayout>
 	</div>
 </zk>

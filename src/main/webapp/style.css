@@ -1,6 +1,6 @@
 .container{
     margin: 1vw;
-    margin-bottom: 5vw;
+    margin-bottom: 3vw;
 }
 
 .messageBox{
@@ -8,4 +8,18 @@
     border-radius: 5px;
     margin: 10px 0;
     padding: 10px;
+}
+
+h1{
+    margin-bottom: 0;
+}
+
+.me{
+    color: blue;
+    weight: bold;
+}
+
+.ai{
+    color: green;
+    font-weight: bold;
 }
