@@ -1,38 +1,75 @@
 package org.zkoss.support;
 
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.*;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.*;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.*;
 
 public class ChatRoomComposer extends SelectorComposer {
     @Wire(".messageBox")
-    private Div msgBox;
+    protected Div msgBox;
     @Wire
-    private Textbox myMessage;
+    protected Textbox myMessage;
 
-    private ChatService chatService = new ChatService();
+    @Wire
+    private Button send;
 
-    @Listen("onOK = textbox ; onClick = #send")
+    @Wire("checkbox")
+    private Checkbox fastCheckbox;
+
+    protected ChatService chatService = new ChatService();
+
+    @Listen("onOK = #myMessage ; onClick = #send")
+    public void send(){
+        if (fastCheckbox.isChecked()){
+            submit2();
+        }else{
+            submit();
+        }
+    }
     public void submit(){
-        appendMyMessage();
-        appendAiMessage();
+        appendMyMessage(myMessage.getValue());
+        appendAiMessage(myMessage.getValue());
         myMessage.setValue("");
     }
 
-    private void appendAiMessage() {
+    public void submit2(){
+        appendMyMessage(myMessage.getValue());
+        myMessage.setValue("");
+        Events.echoEvent("onAsk", myMessage, myMessage.getValue());
+        Clients.showBusy(myMessage, "wait for reply");
+        myMessage.setFocus(false);
+    }
+
+    @Listen("onAsk = #myMessage")
+    public void askAi(Event event){
+        appendAiMessage(event.getData().toString());
+        Clients.clearBusy(myMessage);
+        myMessage.setFocus(true);
+    }
+
+
+    @Listen("onCheck = checkbox")
+    public void toggle(){
+        send.setIconSclass(send.getIconSclass().equalsIgnoreCase("z-icon-send") ?
+                "z-icon-fast-forward" : "z-icon-send");
+    }
+
+    protected void appendAiMessage(String myMessage) {
         Div msgDiv = new Div();
         Label aiName = new Label("ChatAI: ");
         aiName.setSclass("ai");
         msgDiv.appendChild(aiName);
-        msgDiv.appendChild(new Label(chatService.prompt(myMessage.getValue())));
+        msgDiv.appendChild(new Label(chatService.prompt(myMessage)));
         msgBox.appendChild(msgDiv);
     }
 
-    private void appendMyMessage(){
+    protected void appendMyMessage(String myMessage) {
         Div msgDiv = new Div();
         Executions.createComponentsDirectly("<label value=\"Me: \" sclass=\"me\"/>", "zul", msgDiv, null);
-        msgDiv.appendChild(new Label(myMessage.getValue()));
+        msgDiv.appendChild(new Label(myMessage));
         msgBox.appendChild(msgDiv);
     }
 

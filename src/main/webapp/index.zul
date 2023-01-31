@@ -1,12 +1,19 @@
 <zk xmlns:h="native">
-	<style src="style.css"/>
-	<h:h1>Chat with AI</h:h1>
-	<div apply="org.zkoss.support.ChatRoomComposer" vflex="1" sclass="container">
-		<div vflex="1" sclass="messageBox" >
-		</div>
-		<hlayout>
-		<textbox id="myMessage"  focus="true" hflex="1" placeholder="type your messages here"/>
-		<button id="send" iconSclass="z-icon-send"/>
-		</hlayout>
-	</div>
+    <style src="style.css"/>
+    <h:h1>Chat with AI</h:h1>
+    <div apply="org.zkoss.support.ChatRoomComposer" vflex="1" sclass="container">
+        <hlayout vflex="1">
+            <div hflex="1" vflex="1">
+                <checkbox label="fast response"/>
+            </div>
+            <div hflex="7" vflex="1">
+                <div vflex="1" sclass="messageBox" style="overflow-y: auto">
+                </div>
+                <hlayout>
+                    <textbox id="myMessage" focus="true" hflex="1" placeholder="type your messages here"/>
+                    <button id="send" iconSclass="z-icon-send"/>
+                </hlayout>
+            </div>
+        </hlayout>
+    </div>
 </zk>
