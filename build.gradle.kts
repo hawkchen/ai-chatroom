@@ -3,6 +3,7 @@ plugins {
     id("org.gretty") version "3.1.1"
 }
 
+//create custom configurations
 val jettyRunnerRuntimeOnly by configurations.creating
 
 repositories {
@@ -39,7 +40,6 @@ group = "org.zkoss.support"
 version = "1.0-SNAPSHOT"
 description = "The ai-chartroom Project"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
-
 
 
 tasks.register("startJettyRunner", JavaExec::class.java) {
