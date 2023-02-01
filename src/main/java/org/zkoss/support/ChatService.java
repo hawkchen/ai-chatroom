@@ -32,7 +32,7 @@ public class ChatService {
     public String prompt(String message) {
         try {
             sendRequest(message);
-            return readResponse().replace("\n\n", "\n");
+            return readResponse().trim().replace("\n\n", "\n");
         } catch (IOException e) {
             e.printStackTrace();
             return e.toString();
