@@ -23,6 +23,8 @@ public class ChatRoomComposer extends SelectorComposer {
 
     @Listen("onOK = #myMessage ; onClick = #send")
     public void send(){
+        if (myMessage.getValue().isEmpty())
+            return;
         if (fastCheckbox.isChecked()){
             submit2();
         }else{
@@ -40,7 +42,7 @@ public class ChatRoomComposer extends SelectorComposer {
         myMessage.setValue("");
         Events.echoEvent("onAsk", myMessage, myMessage.getValue());
         Clients.showBusy(myMessage, "wait for reply");
-        myMessage.setFocus(false);
+        send.setFocus(true); //move out focus
     }
 
     @Listen("onAsk = #myMessage")
