@@ -13,8 +13,7 @@ import java.net.*;
 import java.util.Properties;
 
 /**
- * https://github.com/TheoKanning/openai-java
- * https://github.com/PlexPt/chatgpt-java
+ * Create completion: https://platform.openai.com/docs/api-reference/completions/create
  */
 public class ChatService {
 
@@ -25,7 +24,6 @@ public class ChatService {
     public ChatService() {
         try {
             url = new URL("https://api.openai.com/v1/completions");
-//            url = new URL("https://api.openai.com/v1/engines/davinci/completions"); deprecated
         }catch (MalformedURLException e){
             throw new IllegalStateException(e);
         }

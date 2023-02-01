@@ -14,7 +14,11 @@
 }
 
 .messageBox div{
-    padding: 20px;
+    padding: 20px 30px;
+}
+
+.z-textbox{
+    height: 38px;
 }
 
 .me{

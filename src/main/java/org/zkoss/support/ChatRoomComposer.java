@@ -62,7 +62,9 @@ public class ChatRoomComposer extends SelectorComposer {
         Label aiName = new Label("ChatAI: ");
         aiName.setSclass("ai");
         msgDiv.appendChild(aiName);
-        msgDiv.appendChild(new Label(chatService.prompt(myMessage)));
+        Label msg = new Label(chatService.prompt(myMessage));
+        msg.setMultiline(true);
+        msgDiv.appendChild(msg);
         msgBox.appendChild(msgDiv);
     }
 
