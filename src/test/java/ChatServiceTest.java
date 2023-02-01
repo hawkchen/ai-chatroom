@@ -5,6 +5,7 @@ public class ChatServiceTest {
 
     @Test
     public void basic(){
-        System.out.println(new ChatService().prompt("hello"));
+        String reply = new ChatService().prompt("How to learn ZK framework?");
+        System.out.println(reply);
     }
 }
