@@ -9,3 +9,10 @@ A chatroom web application that communicates with ChatGPT by its API.
 # How to run with Gradle
 run task `startJettyRunner`
 
+# Related Document
+* [Hflex and Vflex](https://www.zkoss.org/wiki/ZK%20Developer's%20Reference/UI%20Patterns/Hflex%20and%20Vflex)
+* [XML Namespaces](https://www.zkoss.org/wiki/ZK%20Developer's%20Reference/UI%20Composing/ZUML/XML%20Namespaces)
+* [Composer](https://www.zkoss.org/wiki/ZK_Developer%27s_Reference/MVC/Controller/Composer)
+* [Wire Components](https://www.zkoss.org/wiki/ZK%20Developer's%20Reference/MVC/Controller/Wire%20Components)
+* [Wire Event Listeners](https://www.zkoss.org/wiki/ZK%20Developer's%20Reference/MVC/Controller/Wire%20Event%20Listeners)
+* [ZK Component Reference](http://books.zkoss.org/wiki/ZK_Component_Reference)
