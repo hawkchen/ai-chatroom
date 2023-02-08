@@ -1,12 +1,6 @@
 package org.zkoss.support;
 
-
-
-
-
-
 import com.google.gson.*;
-import org.zkoss.json.*;
 
 import java.io.*;
 import java.net.*;

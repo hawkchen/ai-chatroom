@@ -8,14 +8,12 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.*;
 
 public class ChatRoomComposer extends SelectorComposer {
-    @Wire(".messageBox")
-    protected Div msgBox;
     @Wire
     protected Textbox myMessage;
-
     @Wire
     private Button send;
-
+    @Wire(".messageBox")
+    protected Div msgBox;
     @Wire("checkbox")
     private Checkbox fastCheckbox;
 
@@ -26,7 +24,7 @@ public class ChatRoomComposer extends SelectorComposer {
         if (myMessage.getValue().isEmpty())
             return;
         if (fastCheckbox.isChecked()){
-            submit2();
+            submitFastResponse();
         }else{
             submit();
         }
@@ -37,7 +35,7 @@ public class ChatRoomComposer extends SelectorComposer {
         myMessage.setValue("");
     }
 
-    public void submit2(){
+    public void submitFastResponse(){
         appendMyMessage(myMessage.getValue());
         myMessage.setValue("");
         Events.echoEvent("onAsk", myMessage, myMessage.getValue());
@@ -72,10 +70,8 @@ public class ChatRoomComposer extends SelectorComposer {
 
     protected void appendMyMessage(String myMessage) {
         Div msgDiv = new Div();
-        Executions.createComponentsDirectly("<label value=\"Me: \" sclass=\"me\"/>", "zul", msgDiv, null);
+        Executions.createComponents("/me.zul", msgDiv, null);
         msgDiv.appendChild(new Label(myMessage));
         msgBox.appendChild(msgDiv);
     }
-
-
 }
