@@ -6,5 +6,8 @@
 		<name>org.zkoss.zk.ui.processMask.enabled</name>
 		<value>true</value>
 	</library-property>
-
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>violet</value> <!-- require theme pack -->
+	</library-property>
 </zk>
