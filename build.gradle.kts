@@ -30,6 +30,7 @@ dependencies {
     implementation("org.zkoss.zk:zkmax:9.6.3-Eval")
     implementation("com.google.code.gson:gson:2.7")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
+    //runtimeOnly("org.zkoss.themepack:theme-pack:9.6.3") //require commercial license
     jettyRunnerRuntimeOnly("org.eclipse.jetty:jetty-runner:9.4.50.v20221201")
     testImplementation("junit:junit:4.4")
 }
