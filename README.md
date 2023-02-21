@@ -1,4 +1,7 @@
 # Overview
+The demo code of [Build an AI Chatroom With ChatGPT and ZK by Asking It How!
+](https://dzone.com/articles/build-ai-chatroom-with-chatgpt-and-zk)
+
 A chatroom web application that communicates with ChatGPT by its API.
 
 # Add OpenAI API KEY
@@ -7,7 +10,7 @@ A chatroom web application that communicates with ChatGPT by its API.
 `api.key=my-key`
 
 # How to run with Gradle
-run task `startJettyRunner`
+run task `startJettyRunner`, `jettyRun`, or `tomcatRun`.
 
 # Related Document
 * [Hflex and Vflex](https://www.zkoss.org/wiki/ZK%20Developer's%20Reference/UI%20Patterns/Hflex%20and%20Vflex)

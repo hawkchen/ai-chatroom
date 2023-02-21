@@ -1,6 +1,6 @@
 plugins {
     war
-    id("org.gretty") version "3.1.1"
+    id("org.gretty") version "3.1.1" //https://plugins.gradle.org/plugin/org.gretty
 }
 
 //create custom configurations
